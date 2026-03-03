@@ -1,13 +1,16 @@
 class GardenError(Exception):
-    pass
+    def __init__(self, message: str = "A garden error occurred.") -> None:
+        super().__init__(message)
 
 
 class PlantError(GardenError):
-    pass
+    def __init__(self, message: str = "The plant has a problem.") -> None:
+        super().__init__(message)
 
 
 class WaterError(GardenError):
-    pass
+    def __init__(self, message: str = "There is a watering problem.") -> None:
+        super().__init__(message)
 
 
 def test_plant_error() -> None:
@@ -50,5 +53,5 @@ def test_custom_errors() -> None:
 if __name__ == "__main__":
     try:
         test_custom_errors()
-    except TypeError as e:
+    except Exception as e:
         print(f"Error: {e}")

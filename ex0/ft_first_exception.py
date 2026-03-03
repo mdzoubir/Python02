@@ -27,5 +27,5 @@ def test_temperature_input() -> None:
 if __name__ == "__main__":
     try:
         test_temperature_input()
-    except TypeError as e:
+    except Exception as e:
         print(f"Error: {e}")

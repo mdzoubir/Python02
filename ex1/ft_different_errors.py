@@ -2,8 +2,8 @@ def garden_operations() -> None:
     print("Testing ValueError...")
     try:
         int("abc")
-    except ValueError as e:
-        print(f"Caught ValueError: {e}")
+    except ValueError:
+        print("Caught ValueError: invalid literal for int()")
 
     print("\nTesting ZeroDivisionError...")
     try:
@@ -22,8 +22,8 @@ def garden_operations() -> None:
     try:
         garden = {"tomato": 5}
         _ = garden["missing_plant"]
-    except KeyError as e:
-        print(f"Caught KeyError: {e}")
+    except KeyError:
+        print("Caught KeyError: 'missing_plant'")
 
     print("\nTesting multiple errors together...")
     try:
@@ -42,5 +42,5 @@ def test_error_types() -> None:
 if __name__ == "__main__":
     try:
         test_error_types()
-    except TypeError as e:
+    except Exception as e:
         print(f"Error: {e}")

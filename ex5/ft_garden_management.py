@@ -15,6 +15,10 @@ class GardenManager:
         self.plants: dict[str, dict[str, int]] = {}
 
     def add_plant(self, name: str) -> None:
+        try:
+            "" + name
+        except TypeError:
+            raise PlantError(f"Invalid plant name: {name!r}")
         if not name:
             raise PlantError("Plant name cannot be empty!")
         self.plants[name] = {"water": 5, "sun": 8}
@@ -30,6 +34,20 @@ class GardenManager:
             print("Closing watering system (cleanup)")
 
     def check_plant_health(self, name: str, water: int, sun: int) -> None:
+        try:
+            "" + name
+        except TypeError:
+            raise PlantError(f"Invalid plant name: {name!r}")
+        if name not in self.plants:
+            raise KeyError(f"Plant '{name}' not found in garden")
+        try:
+            water = int(water)
+        except (ValueError, TypeError):
+            raise ValueError(f"Invalid water level: {water!r}")
+        try:
+            sun = int(sun)
+        except (ValueError, TypeError):
+            raise ValueError(f"Invalid sunlight hours: {sun!r}")
         if water > 10:
             raise ValueError(f"Water level {water} is too high (max 10)")
         if water < 1:
@@ -83,5 +101,5 @@ def test_garden_management() -> None:
 if __name__ == "__main__":
     try:
         test_garden_management()
-    except TypeError as e:
+    except Exception as e:
         print(f"Error: {e}")

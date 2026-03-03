@@ -2,10 +2,12 @@ def water_plants(plant_list: list) -> None:
     print("Opening watering system")
     try:
         for plant in plant_list:
-            if plant is None:
-                raise TypeError(f"Cannot water {plant} - invalid plant!")
+            try:
+                "" + plant
+            except TypeError:
+                raise ValueError(f"Cannot water {plant} - invalid plant!")
             print(f"Watering {plant}")
-    except (ValueError, TypeError) as e:
+    except ValueError as e:
         print(f"Error: {e}")
     finally:
         print("Closing watering system (cleanup)")
@@ -26,5 +28,5 @@ def test_watering_system() -> None:
 if __name__ == "__main__":
     try:
         test_watering_system()
-    except TypeError as e:
+    except Exception as e:
         print(f"Error: {e}")
