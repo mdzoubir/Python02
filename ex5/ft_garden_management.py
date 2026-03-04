@@ -12,13 +12,13 @@ class WaterError(GardenError):
 
 class GardenManager:
     def __init__(self) -> None:
-        self.plants: dict[str, dict[str, int]] = {}
+        self.plants = {}
 
     def add_plant(self, name: str) -> None:
         try:
             "" + name
         except TypeError:
-            raise PlantError(f"Invalid plant name: {name!r}")
+            raise PlantError(f"Invalid plant name: {name}")
         if not name:
             raise PlantError("Plant name cannot be empty!")
         self.plants[name] = {"water": 5, "sun": 8}
@@ -37,21 +37,21 @@ class GardenManager:
         try:
             "" + name
         except TypeError:
-            raise PlantError(f"Invalid plant name: {name!r}")
+            raise PlantError(f"Invalid plant name: {name}")
         if name not in self.plants:
             raise KeyError(f"Plant '{name}' not found in garden")
         try:
             water = int(water)
         except (ValueError, TypeError):
-            raise ValueError(f"Invalid water level: {water!r}")
+            raise ValueError(f"Invalid water level: {water}")
         try:
             sun = int(sun)
         except (ValueError, TypeError):
-            raise ValueError(f"Invalid sunlight hours: {sun!r}")
+            raise ValueError(f"Invalid sunlight hours: {sun}")
         if water > 10:
-            raise ValueError(f"Water level {water} is too high (max 10)")
+            raise WaterError(f"Water level {water} is too high (max 10)")
         if water < 1:
-            raise ValueError(f"Water level {water} is too low (min 1)")
+            raise WaterError(f"Water level {water} is too low (min 1)")
         if sun > 12:
             raise ValueError(f"Sunlight hours {sun} is too high (max 12)")
         if sun < 2:
@@ -85,7 +85,7 @@ def test_garden_management() -> None:
     for name, water, sun in checks:
         try:
             manager.check_plant_health(name, water, sun)
-        except ValueError as e:
+        except Exception as e:
             print(f"Error checking {name}: {e}")
 
     print("\nTesting error recovery...")

@@ -7,7 +7,7 @@ def garden_operations() -> None:
 
     print("\nTesting ZeroDivisionError...")
     try:
-        _ = 10 / 0
+        10 / 0
     except ZeroDivisionError as e:
         print(f"Caught ZeroDivisionError: {e}")
 
@@ -21,14 +21,14 @@ def garden_operations() -> None:
     print("\nTesting KeyError...")
     try:
         garden = {"tomato": 5}
-        _ = garden["missing_plant"]
+        garden["missing_plant"]
     except KeyError:
-        print("Caught KeyError: 'missing_plant'")
+        print("Caught KeyError: 'missing\\_plant'")
 
     print("\nTesting multiple errors together...")
     try:
         int("bad")
-        _ = 1 / 0
+        1 / 0
     except (ValueError, ZeroDivisionError):
         print("Caught an error, but program continues!")
 

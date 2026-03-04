@@ -4,16 +4,16 @@ def check_plant_health(
     try:
         "" + plant_name
     except TypeError:
-        raise ValueError(f"Invalid plant name: {plant_name!r}")
+        raise ValueError(f"Invalid plant name: {plant_name}")
     try:
         water_level = int(water_level)
     except (ValueError, TypeError):
-        raise ValueError(f"Invalid water level: {water_level!r}")
+        raise ValueError(f"Invalid water level: {water_level}")
     try:
         sunlight_hours = int(sunlight_hours)
-
     except (ValueError, TypeError):
-        raise ValueError(f"Invalid sunlight hours: {sunlight_hours!r}")
+        raise ValueError(f"Invalid sunlight hours: {sunlight_hours}")
+
     if not plant_name:
         raise ValueError("Plant name cannot be empty!")
     if water_level > 10:
@@ -36,7 +36,7 @@ def test_plant_checks() -> None:
 
     print("Testing good values...")
     try:
-        result = check_plant_health("tomato", 12, 8)
+        result = check_plant_health("tomato", 8, 8)
         print(result)
     except ValueError as e:
         print(f"Error: {e}")
