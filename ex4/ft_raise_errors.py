@@ -2,32 +2,22 @@ def check_plant_health(
     plant_name: str, water_level: int, sunlight_hours: int
 ) -> str:
     try:
-        "" + plant_name
+        plant_name + ""
     except TypeError:
-        raise ValueError(f"Invalid plant name: {plant_name}")
-    try:
-        water_level = int(water_level)
-    except (ValueError, TypeError):
-        raise ValueError(f"Invalid water level: {water_level}")
-    try:
-        sunlight_hours = int(sunlight_hours)
-    except (ValueError, TypeError):
-        raise ValueError(f"Invalid sunlight hours: {sunlight_hours}")
+        raise TypeError("Plant name must be a string!")
 
     if not plant_name:
         raise ValueError("Plant name cannot be empty!")
-    if water_level > 10:
-        raise ValueError(f"Water level {water_level} is too high (max 10)")
-    if water_level < 1:
+    if not 1 <= water_level <= 10:
+        if water_level > 10:
+            raise ValueError(f"Water level {water_level} is too high (max 10)")
         raise ValueError(f"Water level {water_level} is too low (min 1)")
-    if sunlight_hours > 12:
-        raise ValueError(
-            f"Sunlight hours {sunlight_hours} is too high (max 12)"
-        )
-    if sunlight_hours < 2:
-        raise ValueError(
-            f"Sunlight hours {sunlight_hours} is too low (min 2)"
-        )
+    
+    if not 2 <= sunlight_hours <= 12:
+        if sunlight_hours > 12:
+            raise ValueError(f"Sunlight hours {sunlight_hours} is too high (max 12)")
+        raise ValueError(f"Sunlight hours {sunlight_hours} is too low (min 2)")
+    
     return f"Plant '{plant_name}' is healthy!"
 
 
@@ -36,27 +26,27 @@ def test_plant_checks() -> None:
 
     print("Testing good values...")
     try:
-        result = check_plant_health("tomato", 8, 8)
+        result = check_plant_health("tomato", 5, 8)
         print(result)
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         print(f"Error: {e}")
 
     print("\nTesting empty plant name...")
     try:
         check_plant_health("", 5, 8)
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         print(f"Error: {e}")
 
     print("\nTesting bad water level...")
     try:
         check_plant_health("tomato", 15, 8)
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         print(f"Error: {e}")
 
     print("\nTesting bad sunlight hours...")
     try:
         check_plant_health("tomato", 5, 0)
-    except ValueError as e:
+    except (ValueError, TypeError) as e:
         print(f"Error: {e}")
 
     print("\nAll error raising tests completed!")

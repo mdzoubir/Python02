@@ -18,7 +18,7 @@ class GardenManager:
         try:
             "" + name
         except TypeError:
-            raise PlantError(f"Invalid plant name: {name}")
+            raise TypeError(f"Invalid plant name: {name}")
         if not name:
             raise PlantError("Plant name cannot be empty!")
         self.plants[name] = {"water": 5, "sun": 8}
@@ -37,9 +37,9 @@ class GardenManager:
         try:
             "" + name
         except TypeError:
-            raise PlantError(f"Invalid plant name: {name}")
+            raise TypeError(f"Invalid plant name: {name}")
         if name not in self.plants:
-            raise KeyError(f"Plant '{name}' not found in garden")
+            raise PlantError(f"Plant '{name}' not found in garden")
         try:
             water = int(water)
         except (ValueError, TypeError):
@@ -68,7 +68,7 @@ def test_garden_management() -> None:
         try:
             manager.add_plant(plant)
             print(f"Added {plant} successfully")
-        except PlantError as e:
+        except (PlantError, TypeError) as e:
             print(f"Error adding plant: {e}")
 
     print("\nWatering plants...")
@@ -85,7 +85,7 @@ def test_garden_management() -> None:
     for name, water, sun in checks:
         try:
             manager.check_plant_health(name, water, sun)
-        except Exception as e:
+        except (TypeError, ValueError, PlantError, WaterError) as e:
             print(f"Error checking {name}: {e}")
 
     print("\nTesting error recovery...")
