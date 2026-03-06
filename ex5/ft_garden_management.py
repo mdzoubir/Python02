@@ -38,16 +38,8 @@ class GardenManager:
             "" + name
         except TypeError:
             raise TypeError(f"Invalid plant name: {name}")
-        if name not in self.plants:
+        if not name:
             raise PlantError(f"Plant '{name}' not found in garden")
-        try:
-            water = int(water)
-        except (ValueError, TypeError):
-            raise ValueError(f"Invalid water level: {water}")
-        try:
-            sun = int(sun)
-        except (ValueError, TypeError):
-            raise ValueError(f"Invalid sunlight hours: {sun}")
         if water > 10:
             raise WaterError(f"Water level {water} is too high (max 10)")
         if water < 1:

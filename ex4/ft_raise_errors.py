@@ -12,12 +12,14 @@ def check_plant_health(
         if water_level > 10:
             raise ValueError(f"Water level {water_level} is too high (max 10)")
         raise ValueError(f"Water level {water_level} is too low (min 1)")
-    
+
     if not 2 <= sunlight_hours <= 12:
         if sunlight_hours > 12:
-            raise ValueError(f"Sunlight hours {sunlight_hours} is too high (max 12)")
+            raise ValueError(
+                f"Sunlight hours {sunlight_hours}is too high (max 12)"
+                )
         raise ValueError(f"Sunlight hours {sunlight_hours} is too low (min 2)")
-    
+
     return f"Plant '{plant_name}' is healthy!"
 
 
